@@ -1,0 +1,28 @@
+{
+  "name": "@inmortalqueen/svelte-price-formatter",
+  "version": "1.0.0",
+  "description": "Number to price formatter",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "svelte": "src/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "keywords": [
+    "svelte",
+    "price",
+    "formatter",
+    "inmortalqueen"
+  ],
+  "author": "inmortalqueen",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.79.1",
+    "rollup-plugin-svelte": "^7.1.0",
+    "svelte": "^3.50.1"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^14.1.0"
+  }
+}
