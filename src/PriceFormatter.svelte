@@ -1,8 +1,15 @@
 <script>
+    let className = "";
+    let idName = "";
+
     export let price = 10000;
     export let locale = "en-US";
     export let minDecimals = 2;
     export let maxDecimals = 2;
+
+    export let style = "";
+    export { className as class };
+    export { idName as id };
 
     export const LOCALES = {
         "en-CA": "CAD",
@@ -29,6 +36,4 @@
     $: formatedMoney = formatter.format(price);
 </script>
 
-<div>
-    <h3>{formatedMoney}</h3>
-</div>
+<h3 class={className} id={idName} style="{style};">{formatedMoney}</h3>

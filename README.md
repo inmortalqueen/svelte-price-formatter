@@ -1,7 +1,7 @@
 # 💰 Svelte-price-formatter 💰
 
 ## *Number to price formatter*
-![1000 to $10,000.00](/src/example.png)
+![1000 to $10,000.00](/src/imgs/example.png)
 
 <br>
 <br>
@@ -93,3 +93,51 @@ npm i @inmortalqueen/svelte-price-formatter
     <PriceFormatter price={1000.12349} maxDecimals={4} />  // $1,000.1235    X >= 5 = true  -->  9.12349 = 9.1235
     <PriceFormatter price={1000.12349} maxDecimals={5} />  // $1,000.12349
     ```
+
+<br>
+
+* ### Customize style:
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
+    
+    <PriceFormatter style="color: red;" />
+    ```
+    ![$10,000.00](/src/imgs/style.png)
+
+<br>
+
+* ### Customize style by class:
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
+    
+    <PriceFormatter class="price-formatter" />
+
+    <style>
+        :global(.price-formatter) {
+            color: blue;
+        }
+    </style>
+    ```
+    ![$10,000.00](/src/imgs/class.png)
+
+<br>
+
+* ### Customize style by id:
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
+    
+    <PriceFormatter id="price-formatter" />
+
+    <style>
+        :global(#price-formatter) {
+            color: green;
+        }
+    </style>
+    ```
+    ![$10,000.00](/src/imgs/id.png)
