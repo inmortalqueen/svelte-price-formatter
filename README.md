@@ -17,8 +17,10 @@ npm i @inmortalqueen/svelte-price-formatter
 # 🔧 Configuration
 
 * ### Default Price:
-    ``` JavaScript
-    import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
     
     <PriceFormatter />  // $10,000.00
     ```
@@ -26,8 +28,10 @@ npm i @inmortalqueen/svelte-price-formatter
 <br>
 
 * ### Customize price:
-    ``` JavaScript
-    import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
 
     <PriceFormatter price={200000} />  // $200,000.00
     <PriceFormatter price={123456} />  // $123,456.00
@@ -37,8 +41,10 @@ npm i @inmortalqueen/svelte-price-formatter
 <br>
 
 * ### Customize locale:
-    ``` JavaScript
-    import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
 
     <PriceFormatter locale="es-AR" />  // $ 10.000,00
     <PriceFormatter locale="es-ES" />  // 10.000,00 €
@@ -65,8 +71,10 @@ npm i @inmortalqueen/svelte-price-formatter
 <br>
 
 * ### Customize minDecimals:
-    ``` JavaScript
-    import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
 
     <PriceFormatter minDecimals={0} />  // $10,000
     <PriceFormatter minDecimals={1} />  // $10,000.0
@@ -75,8 +83,10 @@ npm i @inmortalqueen/svelte-price-formatter
 <br>
 
 * ### Customize maxDecimals:
-    ``` JavaScript
-    import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    ``` HTML
+    <script>
+        import PriceFormatter from "@inmortalqueen/svelte-price-formatter";
+    </script>
     
     <PriceFormatter price={1000.12349} />                  // $1,000.12
     <PriceFormatter price={1000.12349} maxDecimals={3} />  // $1,000.123

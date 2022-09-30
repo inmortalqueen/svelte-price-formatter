@@ -1,6 +1,6 @@
 {
   "name": "@inmortalqueen/svelte-price-formatter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Number to price formatter",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
