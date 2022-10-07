@@ -1,4 +1,6 @@
 <script>
+    import { formatter } from "./config.js";
+
     let className = "";
     let idName = "";
 
@@ -11,29 +13,9 @@
     export { className as class };
     export { idName as id };
 
-    export const LOCALES = {
-        "en-CA": "CAD",
-        "en-GB": "GBP",
-        "en-US": "USD",
-        "es-AR": "ARS",
-        "es-ES": "EUR",
-        "es-MX": "MXN",
-        "ja-JP": "JPY",
-        "pt-BR": "BRL",
-        "pt-PT": "EUR",
-        "zh-CN": "CNY",
-        "zh-HK": "HKD",
-        "zh-TW": "TWD",
-    };
+    let f = formatter(locale, minDecimals, maxDecimals);
 
-    let formatter = new Intl.NumberFormat(locale, {
-        style: "currency",
-        currency: LOCALES[locale],
-        minimumFractionDigits: minDecimals,
-        maximumFractionDigits: maxDecimals,
-    });
-
-    $: formatedMoney = formatter.format(price);
+    $: formatedMoney = f.format(price);
 </script>
 
 <h3 class={className} id={idName} style="{style};">{formatedMoney}</h3>
