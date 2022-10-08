@@ -58,18 +58,18 @@ npm i @inmortalqueen/svelte-price-formatter
 
         | LOCALE  | SYMBOL | CURRENCY          |
         |:--------|:------:|:------------------|
-        | "en-CA" | $      | Canadian dollar   |
-        | "en-GB" | £      | Pound sterling    |
-        | "en-US" | $      | American dollar   |
-        | "es-AR" | $      | Argentine peso    |
+        | "en-CA" | $      | Canadian Dollar   |
+        | "en-GB" | £      | Pound Sterling    |
+        | "en-US" | $      | American Dollar   |
+        | "es-AR" | $      | Argentine Peso    |
         | "es-ES" | €      | Euro              |
-        | "es-MX" | $      | Mexican peso      |
+        | "es-MX" | $      | Mexican Peso      |
         | "ja-JP" | ¥      | Yen               |
-        | "pt-BR" | R$     | Brazilian real    |
+        | "pt-BR" | R$     | Brazilian Real    |
         | "pt-PT" | €      | Euro              |
-        | "zh-CN" | ¥      | Renminbi          |
-        | "zh-HK" | HK$    | Hong Kong dollar  |
-        | "zh-TW" | $      | new taiwan dollar |
+        | "zh-CN" | ¥      | Yuan              |
+        | "zh-HK" | HK$    | Hong Kong Dollar  |
+        | "zh-TW" | $      | New Taiwan Dollar |
 
 <br>
 
@@ -175,6 +175,19 @@ npm i @inmortalqueen/svelte-price-formatter
 
 <br>
 
+* ### Customize limit:
+    ``` HTML
+    <script>
+        import { InputPriceFormatter } from "@inmortalqueen/svelte-price-formatter";
+    </script>
+
+    <InputPriceFormatter limit={1000} />
+    <InputPriceFormatter limit={10000.55} />
+    ```
+    ![input.value="$1,000.00" input.value="$10,000.55"](/src/imgs/input-price-formatter/limits.png)
+
+<br>
+
 * ### Customize locale:
     ``` HTML
     <script>
@@ -191,31 +204,45 @@ npm i @inmortalqueen/svelte-price-formatter
 
         | LOCALE  | SYMBOL | CURRENCY          |
         |:--------|:------:|:------------------|
-        | "en-CA" | $      | Canadian dollar   |
-        | "en-GB" | £      | Pound sterling    |
-        | "en-US" | $      | American dollar   |
-        | "es-AR" | $      | Argentine peso    |
+        | "en-CA" | $      | Canadian Dollar   |
+        | "en-GB" | £      | Pound Sterling    |
+        | "en-US" | $      | American Dollar   |
+        | "es-AR" | $      | Argentine Peso    |
         | "es-ES" | €      | Euro              |
-        | "es-MX" | $      | Mexican peso      |
+        | "es-MX" | $      | Mexican Peso      |
         | "ja-JP" | ¥      | Yen               |
-        | "pt-BR" | R$     | Brazilian real    |
+        | "pt-BR" | R$     | Brazilian Real    |
         | "pt-PT" | €      | Euro              |
-        | "zh-CN" | ¥      | Renminbi          |
-        | "zh-HK" | HK$    | Hong Kong dollar  |
-        | "zh-TW" | $      | new taiwan dollar |
+        | "zh-CN" | ¥      | Yuan              |
+        | "zh-HK" | HK$    | Hong Kong Dollar  |
+        | "zh-TW" | $      | New Taiwan Dollar |
 
 <br>
 
-* ### Customize limit:
+* ### Customize maxDecimals:
     ``` HTML
     <script>
         import { InputPriceFormatter } from "@inmortalqueen/svelte-price-formatter";
     </script>
 
-    <InputPriceFormatter limit={1000} />
-    <InputPriceFormatter limit={10000.55} />
+    <InputPriceFormatter maxDecimals={0} />
+    <InputPriceFormatter maxDecimals={4} />
     ```
-    ![input.value="$1,000.00" input.value="$10,000.55"](/src/imgs/input-price-formatter/limits.png)
+    ![input.placeholder="$1,000" input.placeholder="$1,000.0000"](/src/imgs/input-price-formatter/maxDecimals.png)
+
+<br>
+
+* ### Customize onChange:
+    ``` HTML
+    <script>
+        import { InputPriceFormatter } from "@inmortalqueen/svelte-price-formatter";
+
+        let onChange = () => {
+            // Your code...
+        }
+    </script>
+
+    <InputPriceFormatter bind:onChange />
 
 <br>
 
@@ -231,7 +258,23 @@ npm i @inmortalqueen/svelte-price-formatter
 
     <InputPriceFormatter bind:inputValue />
     ```
-    ![input.value="$12,345.00"](/src/imgs/input-price-formatter/inputValue.png)
+    ![input.value="$12,345.00" -> 1234.45](/src/imgs/input-price-formatter/inputValue.png)
+
+<br>
+
+* ### Get value:
+    ``` HTML
+    <script>
+        import { InputPriceFormatter } from "@inmortalqueen/svelte-price-formatter";
+
+        let value;
+
+        $: console.log(value);
+    </script>
+
+    <InputPriceFormatter bind:value />
+    ```
+    ![input.value="$1,000,000.00" -> $1,000,000.00](/src/imgs/input-price-formatter/value.png)
 
 <br>
 

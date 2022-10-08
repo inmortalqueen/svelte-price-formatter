@@ -7,6 +7,10 @@ export function formatter(locale, minDecimals, maxDecimals) {
     });
 }
 
+export function formatterPrice(locale, maxDecimals, minDecimals, price) {
+    return formatter(locale, minDecimals, maxDecimals).format(price);
+}
+
 export const LOCALES = {
     "en-CA": {
         currency: "CAD",

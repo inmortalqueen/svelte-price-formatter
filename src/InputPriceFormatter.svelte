@@ -1,39 +1,50 @@
 <script>
-    import { LOCALES, formatter } from "./config.js";
+    import { LOCALES, formatterPrice } from "./config.js";
 
     let className = "";
     let idName = "";
 
-    export let locale = "en-US";
     export let inputValue = 0;
     export let limit = 1000000;
+    export let locale = "en-US";
+    export let maxDecimals = 2;
+    export let onChange = "";
     export let placeholder = "1000";
+    export let value = "";
 
     export let style = "";
     export { className as class };
     export { idName as id };
 
     let input_currency;
-    let value;
+    let euroLocales = ["es-ES", "pt-PT"];
+    let commaAsDecimal = ["es-AR", "es-ES", "pt-BR"];
+    let spaceSeparator = ["pt-PT"];
 
     function formatNumber(n) {
         // format number 1000000 to 1,000,000
-        return n
-            .replace(/\D/g, "")
-            .replace(/\B(?=(\d{3})+(?!\d))/g, LOCALES[locale].separator);
+        let _n = n.replace(/\D/g, "");
+
+        let formatted = n.includes(LOCALES[locale].decimal)
+            ? _n
+            : _n.replace(/\B(?=(\d{3})+(?!\d))/g, LOCALES[locale].separator);
+
+        return formatted;
     }
 
     // format the placeholder
-    let formatPlaceholder =
-        locale === "es-ES" || locale === "pt-PT"
-            ? formatNumber(placeholder) +
-              LOCALES[locale].decimal +
-              "00" +
-              LOCALES[locale].symbol
-            : LOCALES[locale].symbol +
-              formatNumber(placeholder) +
-              LOCALES[locale].decimal +
-              "00";
+    function formatPlaceholder() {
+        let formattedNumber = formatNumber(placeholder);
+        let localeDecimal = maxDecimals === 0 ? "" : LOCALES[locale].decimal;
+        localeDecimal = localeDecimal + "0".repeat(maxDecimals);
+        formattedNumber += localeDecimal;
+
+        if (euroLocales.includes(locale)) {
+            return formattedNumber + LOCALES[locale].symbol;
+        } else {
+            return LOCALES[locale].symbol + formattedNumber;
+        }
+    }
 
     function formatCurrency(input, blur) {
         // appends $ to value, validates decimal side
@@ -70,40 +81,39 @@
 
             // On blur make sure 2 numbers after decimal
             if (blur === "blur") {
-                right_side += "00";
+                right_side += "0".repeat(maxDecimals);
             }
 
             // Limit decimal to only 2 digits
-            right_side = right_side.substring(0, 2);
+            right_side = right_side.substring(0, maxDecimals);
 
             // join number by .
-            if (locale === "es-ES" || locale === "pt-PT") {
-                input_val =
-                    left_side +
-                    LOCALES[locale].decimal +
-                    right_side +
-                    LOCALES[locale].symbol;
+            let formattedCurrency =
+                left_side + LOCALES[locale].decimal + right_side;
+
+            if (euroLocales.includes(locale)) {
+                input_val = formattedCurrency + LOCALES[locale].symbol;
             } else {
-                input_val =
-                    LOCALES[locale].symbol +
-                    left_side +
-                    LOCALES[locale].decimal +
-                    right_side;
+                input_val = LOCALES[locale].symbol + formattedCurrency;
             }
         } else {
             // no decimal entered
             // add commas to number
             // remove all non-digits
             input_val = formatNumber(input_val);
-            if (locale === "es-ES" || locale === "pt-PT") {
+            if (euroLocales.includes(locale)) {
                 input_val = input_val + LOCALES[locale].symbol;
             } else {
                 input_val = LOCALES[locale].symbol + input_val;
             }
 
             // final formatting
-            if (blur === "blur" && locale != "es-ES" && locale != "pt-PT") {
-                input_val += LOCALES[locale].decimal + "00";
+            if (
+                blur === "blur" &&
+                !euroLocales.includes(locale) &&
+                maxDecimals > 0
+            ) {
+                input_val += LOCALES[locale].decimal + "0".repeat(maxDecimals);
             }
         }
 
@@ -122,9 +132,9 @@
         );
 
         // prepare the string to transform it to float
-        if (locale === "es-AR" || locale === "es-ES" || locale === "pt-BR") {
+        if (commaAsDecimal.includes(locale)) {
             inputValue = inputValue.replaceAll(".", "").replaceAll(",", ".");
-        } else if (locale === "pt-PT") {
+        } else if (spaceSeparator.includes(locale)) {
             inputValue = inputValue
                 .replaceAll(" ", "")
                 .replaceAll(",", ".")
@@ -137,9 +147,15 @@
         inputValue = parseFloat(inputValue);
 
         if (inputValue > limit) {
-            input_currency.value = formatter(locale, 2, 2).format(limit);
+            input_currency.value = formatterPrice(
+                locale,
+                maxDecimals,
+                maxDecimals,
+                limit
+            );
             inputValue = limit;
         }
+        value = input_currency.value;
 
         return inputValue;
     }
@@ -153,7 +169,8 @@
     type="text"
     bind:value
     data-type="currency"
-    placeholder={formatPlaceholder}
+    placeholder={formatPlaceholder()}
+    on:change={onChange}
     on:keyup={() => {
         formatCurrency(this);
     }}
